@@ -1,6 +1,6 @@
 package com.books.app.presentation.di
 
-import com.books.app.data.BooksRepositoryImpl
+import com.books.app.data.repository.BooksRepositoryImpl
 import com.books.app.domain.BooksRepository
 import dagger.Module
 import dagger.Provides
