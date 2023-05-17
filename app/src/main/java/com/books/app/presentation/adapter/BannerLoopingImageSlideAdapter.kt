@@ -33,6 +33,15 @@ class BannerLoopingImageSlideAdapter(
         val imageView = convertView.findViewById<ImageView>(R.id.iv_images)
         GlideApp.with(imageView).load(itemList?.get(listPosition)?.cover)
             .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView)
+        convertView.setOnClickListener {
+            itemList?.get(listPosition)?.let { item -> onClickListener?.invoke(item) }
+        }
 
+    }
+
+    private var onClickListener: ((TopBannerSlide) -> Unit)? = null
+
+    fun setOnClickListener(listener: (TopBannerSlide) -> Unit) {
+        onClickListener = listener
     }
 }

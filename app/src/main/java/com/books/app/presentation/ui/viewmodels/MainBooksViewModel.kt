@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.books.app.core.ResponseInfo
+import com.books.app.data.models.books.Books
 import com.books.app.domain.usecase.FetchBannerInfoUseCase
 import com.books.app.domain.usecase.FetchMainBooksUseCase
 import com.books.app.presentation.model.DataItemType
@@ -22,6 +23,7 @@ class MainBooksViewModel @Inject constructor(
 ) : ViewModel() {
     private val mainBooksData: MutableLiveData<List<MainBookRecyclerData>> =
         MutableLiveData()
+    var allBooksList:List<Books> = emptyList()
 
     fun getMainBooksLiveData(): LiveData<List<MainBookRecyclerData>> = mainBooksData
 
@@ -52,9 +54,12 @@ class MainBooksViewModel @Inject constructor(
                     }
                     when (books) {
                         is ResponseInfo.Success -> {
+                            allBooksList = books.data
                             val listOfGenres = books.data.flatMap { listOf(it.genre) }.distinct()
                             listOfGenres.forEachIndexed { index, genre ->
-                                val subList = books.data.filter { it.genre == genre }
+                                val subList = books.data.filter { it.genre == genre }.toMutableList()
+                                subList.addAll(subList)
+                                subList.addAll(subList)
                                 tempList.add(
                                     MainBookRecyclerData(
                                         index.plus(1),
@@ -76,6 +81,5 @@ class MainBooksViewModel @Inject constructor(
         }
 
     }
-
 
 }

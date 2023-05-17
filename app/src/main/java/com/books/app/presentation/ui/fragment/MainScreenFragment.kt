@@ -26,10 +26,15 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
 
     override fun initListeners() {
         super.initListeners()
-        mainRecyclerAdapter.setBockClickListener {
+        mainRecyclerAdapter.setBookClickListener {
             println(it)
         }
+        mainRecyclerAdapter.setBannerClickListener {banner ->
+            println(banner)
+            println(mainBooksViewModel.allBooksList.find { it.id == banner.bookId })
+        }
     }
+
     override fun initViews() {
         binding.bookScreenRv.apply {
             layoutManager = LinearLayoutManager(
@@ -57,6 +62,4 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
             mainRecyclerAdapter.submitList(it)
         }
     }
-
-
 }

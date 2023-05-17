@@ -1,6 +1,5 @@
 package com.books.app.presentation.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.books.app.R
+import com.books.app.data.models.banner.TopBannerSlide
 import com.books.app.data.models.books.Books
 import com.books.app.databinding.ItemBannerBinding
 import com.books.app.databinding.ItemHorizontalRecyclerBinding
@@ -17,6 +17,7 @@ import com.books.app.presentation.util.MarginHorizontalItemDecoration
 sealed class MainBooksViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
     var itemBookClickListener: ((item: Books) -> Unit)? = null
+    var itemBannerSildeClockListener: ((item: TopBannerSlide) -> Unit)? = null
 
     class BannerViewHolder(
         private val binding: ItemBannerBinding,
@@ -30,8 +31,12 @@ sealed class MainBooksViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
         }
 
         fun bind(mainData: MainBookRecyclerData) {
+
             mainData.bannerList?.let {
                 val childAdapter = BannerLoopingImageSlideAdapter(mainData.bannerList, true)
+                childAdapter.setOnClickListener {
+                    itemBannerSildeClockListener?.invoke(it)
+                }
                 binding.bannerViewPager.adapter = childAdapter
                 //Custom bind indicator
                 binding.tabIndicator.highlighterViewDelegate = {
@@ -87,10 +92,10 @@ sealed class MainBooksViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder
             binding.horizontalRv.addItemDecoration(
                 MarginHorizontalItemDecoration(
                     rightSize = binding.horizontalRv.context.resources.getDimensionPixelSize(
-                        R.dimen.recycler_margin_sides
+                        R.dimen.recycler_margin_end
                     ),
                     leftSize = binding.horizontalRv.context.resources.getDimensionPixelSize(
-                        R.dimen.recycler_margin_sides
+                        R.dimen.recycler_margin_start
                     )
                 )
             )

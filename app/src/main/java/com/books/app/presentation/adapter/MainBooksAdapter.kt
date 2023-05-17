@@ -1,11 +1,11 @@
 package com.books.app.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.books.app.R
+import com.books.app.data.models.banner.TopBannerSlide
 import com.books.app.data.models.books.Books
 import com.books.app.databinding.ItemBannerBinding
 import com.books.app.databinding.ItemHorizontalRecyclerBinding
@@ -16,6 +16,7 @@ class MainBooksAdapter :
     ListAdapter<MainBookRecyclerData, MainBooksViewHolder>(BookMainDiffCallBack()) {
 
     var itemBooksClickListener: ((item: Books) -> Unit)? = null
+    var itemBannerClickListener: ((item: TopBannerSlide) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainBooksViewHolder {
         return when (viewType) {
             R.layout.item_banner -> MainBooksViewHolder.BannerViewHolder(
@@ -37,6 +38,7 @@ class MainBooksAdapter :
     override fun onBindViewHolder(holder: MainBooksViewHolder, position: Int) {
 
         holder.itemBookClickListener = itemBooksClickListener
+        holder.itemBannerSildeClockListener = itemBannerClickListener
 
         val item = getItem(position)
         when (holder) {
@@ -55,9 +57,14 @@ class MainBooksAdapter :
         }
     }
 
-    fun setBockClickListener(listener: (Books) -> Unit) {
+    fun setBookClickListener(listener: (Books) -> Unit) {
         itemBooksClickListener = listener
     }
+
+    fun setBannerClickListener(listener: (TopBannerSlide) -> Unit) {
+        itemBannerClickListener = listener
+    }
+
     class BookMainDiffCallBack : DiffUtil.ItemCallback<MainBookRecyclerData>() {
 
         override fun areItemsTheSame(
