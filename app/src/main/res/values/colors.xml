@@ -17,4 +17,5 @@
     <color name="app_logo_color">#DD48A1</color>
     <color name="white_80_transparent">#CCFFFFFF</color>
     <color name="white_20_transparent">#33FFFFFF</color>
+    <color name="main_screen_bg">#0F0F0F</color>
 </resources>

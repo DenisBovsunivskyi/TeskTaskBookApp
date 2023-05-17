@@ -16,12 +16,20 @@
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_main_fragment"
-        app:destination="@id/splashScreenFragment"
+        app:destination="@id/mainScreenFragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out"
         app:popUpTo="@id/nav_graph"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.books.app.presentation.ui.fragment.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" />
+        tools:layout="@layout/fragment_splash_screen" >
+    </fragment>
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.books.app.presentation.ui.fragment.MainScreenFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" />
 </navigation>
