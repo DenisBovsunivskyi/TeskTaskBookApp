@@ -5,6 +5,8 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'com.google.gms.google-services'
     id 'kotlin-kapt'
+
+
 }
 
 android {
@@ -36,6 +38,7 @@ android {
     }
     buildFeatures{
         dataBinding = true
+        viewBinding true
     }
 }
 
@@ -75,7 +78,6 @@ dependencies {
     //Firebase
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
 
 

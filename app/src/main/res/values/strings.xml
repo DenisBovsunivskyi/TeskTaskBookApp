@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TeskTaskBookApp</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="text_book_app">Book App</string>
+    <string name="text_welcome_to_book_app">Welcome to Book App</string>
 </resources>
