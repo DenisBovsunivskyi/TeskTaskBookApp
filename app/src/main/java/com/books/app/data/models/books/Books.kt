@@ -3,7 +3,7 @@ package com.books.app.data.models.books
 
 import com.google.gson.annotations.SerializedName
 
-data class Book(
+data class Books(
     @SerializedName("author")
     val author: String,
     @SerializedName("cover_url")

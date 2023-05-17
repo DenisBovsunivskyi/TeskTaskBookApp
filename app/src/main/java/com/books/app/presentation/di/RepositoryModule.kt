@@ -1,5 +1,6 @@
 package com.books.app.presentation.di
 
+import com.books.app.data.data_source.BookDataSource
 import com.books.app.data.repository.BooksRepositoryImpl
 import com.books.app.domain.BooksRepository
 import dagger.Module
@@ -14,8 +15,9 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideBooksRepository(
+        booksDataSource: BookDataSource
     ): BooksRepository {
-        return BooksRepositoryImpl()
+        return BooksRepositoryImpl(booksDataSource)
     }
 
 }

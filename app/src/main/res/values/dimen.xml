@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recycler_margin">26dp</dimen>
+    <dimen name="recycler_margin_bottom">5dp</dimen>
+    <dimen name="recycler_margin_sides">8dp</dimen>
+    <dimen name="custom_indicator_size">7dp</dimen>
+</resources>
