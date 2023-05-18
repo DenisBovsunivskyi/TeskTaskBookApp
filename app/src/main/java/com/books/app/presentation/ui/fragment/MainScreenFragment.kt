@@ -30,11 +30,9 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
     override fun initListeners() {
         super.initListeners()
         mainRecyclerAdapter.setBookClickListener {
-            println(it)
             openDetailsScreen(it)
         }
         mainRecyclerAdapter.setBannerClickListener { banner ->
-            println(banner)
             mainBooksViewModel.allBooksList.find { it.id == banner.bookId }
                 ?.let { openDetailsScreen(it) }
         }
