@@ -9,4 +9,6 @@ import kotlinx.coroutines.flow.Flow
 interface BooksRepository {
     suspend fun fetchBookBannersInfo(): Flow<ResponseInfo<List<TopBannerSlide>,UniversalText>>
     suspend fun fetchMainBooks(): Flow<ResponseInfo<List<Books>,UniversalText>>
+    suspend fun fetchDetailsBooks(): Flow<ResponseInfo<List<Books>,UniversalText>>
+    suspend fun fetchRecommendedBooks(): Flow<ResponseInfo<List<Int>,UniversalText>>
 }

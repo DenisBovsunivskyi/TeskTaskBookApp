@@ -4,4 +4,5 @@ import com.books.app.data.models.temp.BooksDto
 
 interface BookDataSource {
     suspend fun fetchBooksMainInfo(): BooksDto
+    suspend fun fetchDetailsInfo(): BooksDto
 }

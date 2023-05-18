@@ -46,4 +46,37 @@ class BooksRepositoryImpl(private val bookDataSource: BookDataSource) : BooksRep
         }
     }
 
+    override suspend fun fetchDetailsBooks(): Flow<ResponseInfo<List<Books>, UniversalText>> = flow {
+        val books = bookDataSource.fetchDetailsInfo().books
+        if (books.isNotEmpty()) {
+            emit(
+                ResponseInfo.Success(
+                    books
+                )
+            )
+        } else {
+            emit(
+                ResponseInfo.Error(
+                    UniversalText.Dynamic("Something went wrong")
+                )
+            )
+        }
+    }
+
+    override suspend fun fetchRecommendedBooks(): Flow<ResponseInfo<List<Int>, UniversalText>>  = flow {
+        val ids = bookDataSource.fetchBooksMainInfo().youWillLikeSection
+        if (ids.isNotEmpty()) {
+            emit(
+                ResponseInfo.Success(
+                    ids
+                )
+            )
+        } else {
+            emit(
+                ResponseInfo.Error(
+                    UniversalText.Dynamic("Something went wrong")
+                )
+            )
+        }
+    }
 }

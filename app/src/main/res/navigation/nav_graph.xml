@@ -31,5 +31,32 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.books.app.presentation.ui.fragment.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_detailsScreenFragment"
+            app:destination="@id/detailsScreenFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" >
+            <argument
+                android:name="selected_book"
+                app:argType="com.books.app.data.models.books.Books"
+               />
+            <argument
+                android:name="recommended_books"
+                app:argType="integer[]" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailsScreenFragment"
+        android:name="com.books.app.presentation.ui.fragment.DetailsScreenFragment"
+        android:label="fragment_details_screen"
+        tools:layout="@layout/fragment_details_screen" >
+        <argument
+            android:name="selected_book"
+            app:argType="com.books.app.data.models.books.Books" />
+        <argument
+            android:name="recommended_books"
+            app:argType="integer[]" />
+
+    </fragment>
 </navigation>

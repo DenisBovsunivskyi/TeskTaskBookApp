@@ -8,6 +8,7 @@ import com.books.app.core.ResponseInfo
 import com.books.app.data.models.books.Books
 import com.books.app.domain.usecase.FetchBannerInfoUseCase
 import com.books.app.domain.usecase.FetchMainBooksUseCase
+import com.books.app.domain.usecase.FetchRecommendedBookUseCase
 import com.books.app.presentation.model.DataItemType
 import com.books.app.presentation.model.MainBookRecyclerData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,16 +20,35 @@ import javax.inject.Inject
 @HiltViewModel
 class MainBooksViewModel @Inject constructor(
     private val fetchBannerInfoUseCase: FetchBannerInfoUseCase,
-    private val fetchMainBooksUseCase: FetchMainBooksUseCase
+    private val fetchMainBooksUseCase: FetchMainBooksUseCase,
+    private val fetchRecommendedBookUseCase: FetchRecommendedBookUseCase
 ) : ViewModel() {
     private val mainBooksData: MutableLiveData<List<MainBookRecyclerData>> =
         MutableLiveData()
-    var allBooksList:List<Books> = emptyList()
-
+    var allBooksList: List<Books> = emptyList()
+    private var recommendedBooks: List<Int> = emptyList()
+    fun getRecommendedBooksList(): List<Int> = recommendedBooks
     fun getMainBooksLiveData(): LiveData<List<MainBookRecyclerData>> = mainBooksData
 
     init {
         fetchCombinedMainInfo()
+        fetchRecommendedBooks()
+    }
+
+    private fun fetchRecommendedBooks() {
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchRecommendedBookUseCase.execute().collect { response ->
+                when (response) {
+                    is ResponseInfo.Success -> {
+                        recommendedBooks = response.data
+                    }
+                    else ->{
+
+                    }
+                }
+            }
+        }
+
     }
 
     private fun fetchCombinedMainInfo() {
@@ -57,7 +77,8 @@ class MainBooksViewModel @Inject constructor(
                             allBooksList = books.data
                             val listOfGenres = books.data.flatMap { listOf(it.genre) }.distinct()
                             listOfGenres.forEachIndexed { index, genre ->
-                                val subList = books.data.filter { it.genre == genre }.toMutableList()
+                                val subList =
+                                    books.data.filter { it.genre == genre }.toMutableList()
                                 subList.addAll(subList)
                                 subList.addAll(subList)
                                 tempList.add(
@@ -76,8 +97,8 @@ class MainBooksViewModel @Inject constructor(
                     }
                     tempList
                 }.collect {
-                mainBooksData.postValue(it)
-            }
+                    mainBooksData.postValue(it)
+                }
         }
 
     }

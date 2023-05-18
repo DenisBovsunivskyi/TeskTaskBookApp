@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data><variable
+        name="model"
+        type="com.books.app.data.models.books.Books" /></data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".presentation.ui.fragment.DetailsScreenFragment">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/background_image"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_details_screen_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/rounded_view" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/pop_back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="45dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_desc_arrow_back"
+                android:padding="15dp"
+                android:src="@drawable/ic_pop_back_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/details_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:paddingEnd="100dp"
+                android:paddingStart="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pop_back_btn" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/book_name"
+                style="@style/Text.H3.White"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:letterSpacing="-0.03"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:text="@{model.name}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details_view_pager"
+                tools:text="If It’s Only Love" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/author_name"
+                style="@style/Text.H5.Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:letterSpacing="-0.03"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:text="@{model.author}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/book_name"
+                tools:text="Zoey Evers" />
+
+            <View
+                android:id="@+id/rounded_view"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_view_bg"
+                app:layout_constraintTop_toBottomOf="@id/author_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/readers_count"
+                style="@style/BookInfoCounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.views}"
+                app:layout_constraintEnd_toStartOf="@id/likes_count"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rounded_view"
+                tools:text="22.2k" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/likes_count"
+                style="@style/BookInfoCounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.likes}"
+                app:layout_constraintEnd_toStartOf="@id/quotes_count"
+                app:layout_constraintStart_toEndOf="@id/readers_count"
+                app:layout_constraintTop_toBottomOf="@id/rounded_view"
+                tools:text="10.2k" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/quotes_count"
+                style="@style/BookInfoCounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.quotes}"
+                app:layout_constraintEnd_toStartOf="@id/genre_text"
+                app:layout_constraintStart_toEndOf="@id/likes_count"
+                app:layout_constraintTop_toBottomOf="@id/rounded_view"
+                tools:text="32.2k" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/genre_text"
+                style="@style/BookInfoCounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{model.genre}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/quotes_count"
+                app:layout_constraintTop_toBottomOf="@id/rounded_view"
+                tools:text="Romance" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/readers_title"
+                style="@style/BookInfoTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_title_readers"
+                app:layout_constraintEnd_toEndOf="@id/readers_count"
+                app:layout_constraintStart_toStartOf="@id/readers_count"
+                app:layout_constraintTop_toBottomOf="@id/readers_count" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/likes_title"
+                style="@style/BookInfoTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_title_likes"
+                app:layout_constraintEnd_toEndOf="@id/likes_count"
+                app:layout_constraintStart_toStartOf="@id/likes_count"
+                app:layout_constraintTop_toBottomOf="@id/likes_count" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/quotes_title"
+                style="@style/BookInfoTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_quotes"
+                app:layout_constraintEnd_toStartOf="@id/quotes_count"
+                app:layout_constraintStart_toEndOf="@id/quotes_count"
+                app:layout_constraintTop_toBottomOf="@id/quotes_count" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/genre_title"
+                style="@style/BookInfoTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_title_genre"
+                app:layout_constraintEnd_toEndOf="@id/genre_text"
+                app:layout_constraintStart_toStartOf="@id/genre_text"
+                app:layout_constraintTop_toBottomOf="@id/genre_text" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="@color/light_grey"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/readers_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/summary_title"
+                style="@style/Text.H3.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:letterSpacing="-0.03"
+                android:textStyle="bold"
+                android:text="@string/text_summary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/summary_text"
+                style="@style/Text.H5.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:letterSpacing="-0.03"
+                android:text="@{model.summary}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/summary_title"
+                tools:text="@tools:sample/lorem/random"
+                tools:maxLines="8" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/light_grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/summary_text" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/you_will_also_like_title"
+                style="@style/Text.H3.Black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:letterSpacing="-0.03"
+                android:textStyle="bold"
+                android:text="@string/text_you_will_also_like"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/details_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_horizontal_book"
+                app:layout_constraintTop_toBottomOf="@id/you_will_also_like_title" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                app:cornerRadius="30dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="48dp"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:fontFamily="@font/nunito_sans_bold"
+                android:backgroundTint="@color/pink"
+                android:layout_marginBottom="70dp"
+                android:text="@string/text_read_now"
+                android:textColor="@color/white"
+                android:letterSpacing="-0.03"
+                app:layout_constraintTop_toBottomOf="@id/details_rv"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

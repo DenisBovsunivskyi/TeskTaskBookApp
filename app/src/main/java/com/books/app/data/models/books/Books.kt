@@ -1,8 +1,11 @@
 package com.books.app.data.models.books
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Books(
     @SerializedName("author")
     val author: String,
@@ -22,4 +25,4 @@ data class Books(
     val summary: String,
     @SerializedName("views")
     val views: String
-)
+) : Parcelable

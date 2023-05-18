@@ -2,6 +2,7 @@ package com.books.app.presentation.di
 
 import com.books.app.domain.BooksRepository
 import com.books.app.domain.usecase.FetchBannerInfoUseCase
+import com.books.app.domain.usecase.FetchDetailsBooksUseCase
 import com.books.app.domain.usecase.FetchMainBooksUseCase
 import com.books.app.domain.usecase.FetchRecommendedBookUseCase
 import dagger.Module
@@ -27,5 +28,10 @@ class UseCaseModule {
     @Singleton
     fun provideRecommendedBooksUseCase(bookRepository: BooksRepository): FetchRecommendedBookUseCase {
         return FetchRecommendedBookUseCase(bookRepository)
+    }
+    @Provides
+    @Singleton
+    fun provideDetailsBooksUseCase(bookRepository: BooksRepository): FetchDetailsBooksUseCase {
+        return FetchDetailsBooksUseCase(bookRepository)
     }
 }

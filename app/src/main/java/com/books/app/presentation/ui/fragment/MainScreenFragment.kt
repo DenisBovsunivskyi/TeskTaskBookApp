@@ -3,9 +3,11 @@ package com.books.app.presentation.ui.fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.books.app.R
 import com.books.app.core.fragment.BaseBindingFragment
+import com.books.app.data.models.books.Books
 import com.books.app.databinding.FragmentMainScreenBinding
 import com.books.app.presentation.adapter.MainBooksAdapter
 import com.books.app.presentation.ui.viewmodels.MainBooksViewModel
@@ -28,12 +30,15 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
         super.initListeners()
         mainRecyclerAdapter.setBookClickListener {
             println(it)
+            openDetailsScreen(it)
         }
-        mainRecyclerAdapter.setBannerClickListener {banner ->
+        mainRecyclerAdapter.setBannerClickListener { banner ->
             println(banner)
-            println(mainBooksViewModel.allBooksList.find { it.id == banner.bookId })
+            mainBooksViewModel.allBooksList.find { it.id == banner.bookId }
+                ?.let { openDetailsScreen(it) }
         }
     }
+
 
     override fun initViews() {
         binding.bookScreenRv.apply {
@@ -61,5 +66,11 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
         mainBooksViewModel.getMainBooksLiveData().observe(viewLifecycleOwner) {
             mainRecyclerAdapter.submitList(it)
         }
+    }
+
+    private fun openDetailsScreen(book: Books) {
+        findNavController().navigate(
+            MainScreenFragmentDirections.actionMainScreenFragmentToDetailsScreenFragment(book,mainBooksViewModel.getRecommendedBooksList().toIntArray())
+        )
     }
 }
