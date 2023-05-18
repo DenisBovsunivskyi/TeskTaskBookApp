@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.books.app.core.Event
 import com.books.app.core.ResponseInfo
+import com.books.app.core.utils.text.UniversalText
 import com.books.app.data.models.books.Books
 import com.books.app.domain.usecase.FetchBannerInfoUseCase
 import com.books.app.domain.usecase.FetchMainBooksUseCase
@@ -34,7 +36,11 @@ class MainBooksViewModel @Inject constructor(
         fetchCombinedMainInfo()
         fetchRecommendedBooks()
     }
-
+    private val mEventLiveData: MutableLiveData<Event<UniversalText>> =
+        MutableLiveData<Event<UniversalText>>()
+    fun getEventLiveData(): LiveData<Event<UniversalText>> {
+        return mEventLiveData
+    }
     private fun fetchRecommendedBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             fetchRecommendedBookUseCase.execute().collect { response ->
@@ -69,7 +75,7 @@ class MainBooksViewModel @Inject constructor(
                         }
 
                         is ResponseInfo.Error -> {
-                            println(banners.rawResponse)
+                            mEventLiveData.postValue(Event(banners.rawResponse))
                         }
                     }
                     when (books) {
@@ -93,7 +99,9 @@ class MainBooksViewModel @Inject constructor(
                             }
                         }
 
-                        is ResponseInfo.Error -> {}
+                        is ResponseInfo.Error -> {
+                            mEventLiveData.postValue(Event(books.rawResponse))
+                        }
                     }
                     tempList
                 }.collect {

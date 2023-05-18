@@ -16,6 +16,7 @@ import com.books.app.presentation.adapter.HorizontalBookDetailsAdapter
 import com.books.app.presentation.adapter.HorizontalDetailsViewPagerAdapter
 import com.books.app.presentation.ui.viewmodels.DetailsScreenViewModel
 import com.books.app.presentation.util.MarginHorizontalItemDecoration
+import com.books.app.presentation.util.extentions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
@@ -63,6 +64,14 @@ class DetailsScreenFragment : BaseBindingFragment<FragmentDetailsScreenBinding>(
         }
         detailsViewModel.getRecommendedBookListLiveData().observe(viewLifecycleOwner) { books ->
             horizontalRvAdapter.differ.submitList(books)
+        }
+        detailsViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            event?.let {
+                context?.let { context ->
+                    context.showToast(it.asString(context))
+                }
+            }
         }
     }
 

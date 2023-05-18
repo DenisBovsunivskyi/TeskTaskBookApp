@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.books.app.core.Event
 import com.books.app.core.ResponseInfo
+import com.books.app.core.utils.text.UniversalText
 import com.books.app.data.models.books.Books
 import com.books.app.domain.usecase.FetchDetailsBooksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +38,11 @@ class DetailsScreenViewModel @Inject constructor(
     init {
         fetchDetailsInfo()
     }
-
+    private val mEventLiveData: MutableLiveData<Event<UniversalText>> =
+        MutableLiveData<Event<UniversalText>>()
+    fun getEventLiveData(): LiveData<Event<UniversalText>> {
+        return mEventLiveData
+    }
     private fun fetchDetailsInfo() {
         viewModelScope.launch(Dispatchers.IO) {
             detailsBooksUseCase.execute().collect { response ->
@@ -51,7 +57,7 @@ class DetailsScreenViewModel @Inject constructor(
                     }
 
                     is ResponseInfo.Error -> {
-
+                        mEventLiveData.postValue(Event(response.rawResponse))
                     }
                 }
             }

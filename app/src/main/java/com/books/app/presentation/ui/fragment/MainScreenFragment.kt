@@ -12,6 +12,7 @@ import com.books.app.databinding.FragmentMainScreenBinding
 import com.books.app.presentation.adapter.MainBooksAdapter
 import com.books.app.presentation.ui.viewmodels.MainBooksViewModel
 import com.books.app.presentation.util.MarginVerticalItemDecoration
+import com.books.app.presentation.util.extentions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,11 +67,22 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
         mainBooksViewModel.getMainBooksLiveData().observe(viewLifecycleOwner) {
             mainRecyclerAdapter.submitList(it)
         }
+        mainBooksViewModel.getEventLiveData().observe(viewLifecycleOwner) { state ->
+            val event = state.contentIfNotHandled
+            event?.let {
+                context?.let { context ->
+                    context.showToast(it.asString(context))
+                }
+            }
+        }
     }
 
     private fun openDetailsScreen(book: Books) {
         findNavController().navigate(
-            MainScreenFragmentDirections.actionMainScreenFragmentToDetailsScreenFragment(book,mainBooksViewModel.getRecommendedBooksList().toIntArray())
+            MainScreenFragmentDirections.actionMainScreenFragmentToDetailsScreenFragment(
+                book,
+                mainBooksViewModel.getRecommendedBooksList().toIntArray()
+            )
         )
     }
 }
