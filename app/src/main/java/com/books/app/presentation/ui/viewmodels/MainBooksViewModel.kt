@@ -85,8 +85,6 @@ class MainBooksViewModel @Inject constructor(
                             listOfGenres.forEachIndexed { index, genre ->
                                 val subList =
                                     books.data.filter { it.genre == genre }.toMutableList()
-                                subList.addAll(subList)
-                                subList.addAll(subList)
                                 tempList.add(
                                     MainBookRecyclerData(
                                         index.plus(1),
