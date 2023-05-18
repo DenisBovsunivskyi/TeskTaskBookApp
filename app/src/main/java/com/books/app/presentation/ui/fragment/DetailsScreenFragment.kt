@@ -106,6 +106,10 @@ class DetailsScreenFragment : BaseBindingFragment<FragmentDetailsScreenBinding>(
             )
         }
     }
-
+    override fun onDestroyView() {
+        requireView().findViewById<RecyclerView>(R.id.details_rv).adapter = null
+        requireView().findViewById<ViewPager2>(R.id.details_view_pager).adapter = null
+        super.onDestroyView()
+    }
 
 }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.books.app.R
 import com.books.app.core.fragment.BaseBindingFragment
 import com.books.app.data.models.books.Books
@@ -83,4 +84,9 @@ class MainScreenFragment : BaseBindingFragment<FragmentMainScreenBinding>() {
             )
         )
     }
+    override fun onDestroyView() {
+        requireView().findViewById<RecyclerView>(R.id.book_screen_rv).adapter = null
+        super.onDestroyView()
+    }
+
 }
