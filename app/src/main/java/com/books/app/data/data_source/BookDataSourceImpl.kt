@@ -25,7 +25,6 @@ class BookDataSourceImpl(private val remoteConfig: FirebaseRemoteConfig) : BookD
             val booksDto = Gson().fromJson<BooksDto>(booksJson, BooksDto::class.java)
             booksDto
         } catch (e: Exception) {
-            println(e)
             return BooksDto(emptyList(), emptyList(), emptyList())
         }
     }
